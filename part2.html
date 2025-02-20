@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ฟอร์มสมัครเรียนปริญญาโท</title>
+<link href='https://fonts.googleapis.com/css?family=Kanit&subset=thai,latin' rel='stylesheet' type='text/css'>
+<style>
+    body { font-family: 'Kanit', sans-serif; background-color: #f7f7f7; margin: 0; padding: 0; }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .container-header {
+        background-color: #C3002F;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px 8px 0 0;
+    }
+    .container-area {
+        display: grid;
+        background-color: blanchedalmond;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        padding: 20px;
+        border: 2px solid rgb(183, 167, 167);
+
+    }
+    label {
+        font-weight: bold;
+    }
+    input, select, textarea {
+        width: 100%;
+        border: 1px solid rgb(180, 180, 180);
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    textarea {
+        height: 80px;
+        resize: vertical;
+    }
+    .full-width {
+        grid-column: span 2;
+    }
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+    .radio-group {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+        .radio-group input[type="radio"] {
+        transform: scale(0.9); 
+        margin-right: 5px;
+    }
+    .radio-group label {
+        white-space: nowrap; 
+        display: flex;
+        align-items: center;
+        gap: 5px; 
+    }
+    button {
+        background-color: #C3002F;
+        border: none;
+        color: white;
+        padding: 10px 30px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: rgb(71, 43, 56);
+    }   
+
+    #summary {
+        margin: 50px auto; 
+        padding: 20px;
+        border: 2px solid rgb(183, 167, 167);
+        background-color: blanchedalmond;
+        border-radius: 5px;
+        max-width: 500px;
+        font-size: 19px;
+        text-align: left;
+        display: block; 
+        margin-left: 30 px ; 
+    }
+    #summary h2{
+        text-align: center;
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="container-header">
+        <h1>ฟอร์มสมัครเรียนปริญญาโท</h1>
+    </div>
+    <form id="registerForm">
+        <div class="container-area">
+            <div>
+                <label for="fname">ชื่อ:</label>
+                <input type="text" id="fname" name="fname" required>
+            </div>
+            <div>
+                <label for="lname">นามสกุล:</label>
+                <input type="text" id="lname" name="lname" required>
+            </div>
+            <div>
+                <label>อายุ:</label>
+                <input type="number" id="age" required>
+            </div>
+            <div>
+                <label for="gender">เพศ:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">กรุณาเลือก</option>
+                    <option value="male">ชาย</option>
+                    <option value="female">หญิง</option>
+                    <option value="not-specified">ไม่ระบุ</option>
+                </select>
+            </div>
+            <div>
+                <label>เบอร์โทรศัพท์:</label>
+                <input type="tel" id="phone" pattern="[0-9]{10}" required>
+            </div>
+            <div>
+                <label for="email">อีเมล:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label>วันเกิด:</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="full-width">
+                <label>ที่อยู่: </label>
+                <textarea id="address" required></textarea>
+            </div>
+            <div class="full-width">
+                <label>เลือกวุฒิที่ใช้สมัครเรียน:</label>
+                <div class="radio-group">
+                    <div class="radio-group">
+                        <label><input type="radio" name="Education" value="Bachelor-degree"> ปริญญาตรี</label>
+                        <label><input type="radio" name="Education" value="Another-degree"> วุฒิการศึกษาอื่นๆ</label>
+                    </div>
+                </div>
+            </div>
+            <label>อัพโหลดเอกสาร: <input type="file" id="document" required></label><br>
+        </div>
+        <button type="submit">ยืนยัน</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+    
+        const fname = document.getElementById('fname').value;
+        const lname = document.getElementById('lname').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const genderElement = document.getElementById('gender');
+        const genderText = genderElement.options[genderElement.selectedIndex].text;
+        const age = document.getElementById('age').value;
+        const dob = document.getElementById('dob').value;
+        const address = document.getElementById('address').value;
+        const educationElement = document.querySelector('input[name="Education"]:checked');
+        const educationText = educationElement ? educationElement.nextSibling.textContent.trim() : "ไม่ได้เลือก";
+        const fileInput = document.getElementById('document');
+        const file = fileInput.files[0];
+        const summaryDiv = document.createElement('div');
+        summaryDiv.id = "summary"
+        summaryDiv.innerHTML = `
+            <h2>บันทึกข้อมูลสำเร็จ</h2>
+            <p><strong>ชื่อ:</strong> ${fname}  ${lname}</p> 
+            <p><strong>อายุ:</strong> ${age}</p>
+            <p><strong>เพศ:</strong> ${genderText}</p>
+            <p><strong>เบอร์โทรศัพท์:</strong> ${phone}</p>
+            <p><strong>อีเมล:</strong> ${email}</p>
+            <p><strong>วันเกิด:</strong> ${dob}</p>
+            <p><strong>ที่อยู่:</strong> ${address}</p>
+            <p><strong>วุฒิการศึกษาที่ใช้สมัครเรียน:</strong> ${educationText}</p>
+            <p><strong>ไฟล์ที่อัปโหลด:</strong> ${file.name}</p>
+        `;
+        const container = document.getElementsByClassName("container")
+            container[0].innerHTML = ""
+            container[0].appendChild(summaryDiv)
+    });
+    </script>    
+</body>
+</html>
